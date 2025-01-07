@@ -211,6 +211,22 @@ fn main() {
                             ndk_root.display()
                         );
                     }
+                    "x86_64-linux-android" => {
+                        set_var("AR", toolchain.join("llvm-ar"));
+                        set_var("AS", toolchain.join("llvm-as"));
+                        set_var("LD", toolchain.join("ld"));
+                        set_var("STRIP", toolchain.join("llvm-strip"));
+                        set_var("RANLIB", toolchain.join("llvm-ranlib"));
+                        cc = Some(
+                            toolchain
+                                .join("x86_64-linux-android21-clang")
+                                .into_os_string(),
+                        );
+                        sysroot = format!(
+                            "--with-sysroot={}/toolchains/llvm/prebuilt/linux-x86_64/sysroot",
+                            ndk_root.display()
+                        );
+                    }
                     &_ => {
                         unimplemented!();
                     }
